@@ -55,15 +55,15 @@ def vigenere_encrypt():
     text = request.form['inputPlainText']
     key = request.form['inputKeyPlain']
     cipher = VigenereCipher()
-    result = cipher.encrypt(text, key)
+    result = cipher.vigenere_encrypt(text, key)
     return f"Encrypted: {result}"
 
 @app.route("/vigenere_decrypt", methods=['POST'])
 def vigenere_decrypt():
     text = request.form['inputCipherText']
-    key = request.form['inputKeyCipher']
+    key = request.form['inputKeyPlain']
     cipher = VigenereCipher()
-    result = cipher.decrypt(text, key)
+    result = cipher.vigenere_decrypt(text, key)
     return f"Decrypted: {result}"
 
 
@@ -77,7 +77,7 @@ def rail_encrypt():
     text = request.form['inputPlainText']
     key = int(request.form['inputKeyPlain'])
     cipher = RailFenceCipher()
-    result = cipher.encrypt(text, key)
+    result = cipher.rail_fence_encrypt(text, key)
     return f"Encrypted: {result}"
 
 @app.route("/rail_decrypt", methods=['POST'])
@@ -85,16 +85,16 @@ def rail_decrypt():
     text = request.form['inputCipherText']
     key = int(request.form['inputKeyCipher'])
     cipher = RailFenceCipher()
-    result = cipher.decrypt(text, key)
+    result = cipher.rail_fence_decrypt(text, key)
     return f"Decrypted: {result}"
 
 
 # Playfair
-@app.route("/playfair_matrix", methods=['POST'])
+@app.route("/create_playfair_matrix", methods=['POST'])
 def playfair_matrix():
     key = request.form['inputKeyMatrix']
     cipher = PlayFairCipher(key)
-    matrix = cipher.create_matrix()
+    matrix = cipher.create_playfair_matrix()
     return str(matrix)
 
 
@@ -103,7 +103,7 @@ def playfair_encrypt():
     text = request.form['inputPlainText']
     key = request.form['inputKeyPlain']
     cipher = PlayFairCipher(key)
-    result = cipher.encrypt(text)
+    result = cipher.playfair_encrypt(text)
     return result
 
 
@@ -112,7 +112,7 @@ def playfair_decrypt():
     text = request.form['inputCipherText']
     key = request.form['inputKeyCipher']
     cipher = PlayFairCipher(key)
-    result = cipher.decrypt(text)
+    result = cipher.playfair_decrypt(text)
     return result
 
 # Transposition
